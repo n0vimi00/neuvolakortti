@@ -22,7 +22,10 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     contentContainer: {
-      
+      marginBottom: 100,
+      padding: 10,
+      backgroundColor: '#dff0e3',
+      borderRadius: 10,
     },
     textInputLabel: {
         color: 'black'

@@ -3,6 +3,8 @@ import {Text,View,TouchableOpacity,Alert, ScrollView, TouchableWithoutFeedback,K
 import {db, ROOT_REF} from '../firebase/Config';
 import { CowRow } from '../components/CowRow';
 import styles from '../style'
+import LeftFAB from '../components/LeftFAB';
+import RightFAB from '../components/RightFAB';
 
 export default function Home({navigation}) {
   const [cowList, setCowList] = useState({});
@@ -45,12 +47,15 @@ export default function Home({navigation}) {
       <Text style={styles.header}>Tilanne</Text>
     
     <Text style={styles.subHeader}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
-    <Text style={{marginTop: 20}}>Kaikki vasikat</Text>
+    <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>
+        <Text style={styles.buttonText}>Tyhjennä tietokanta</Text>
+    </TouchableOpacity>
+
+    <Text style={{marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15}}>Kaikki vasikat</Text>
 
 
 
-
-    <ScrollView contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={styles.contentContainer}>
       {cowKeys.length > 0 ? (
         cowKeys.map(key => (
         <TouchableOpacity key={key}
@@ -68,13 +73,14 @@ export default function Home({navigation}) {
       )}
     </ScrollView>
 
-    <TouchableOpacity style={styles.grayButton} onPress={() => navigation.navigate('Camera', {keys: cowKeys, cowList: cowList})}>
+    {/* <TouchableOpacity style={styles.grayButton} onPress={() => navigation.navigate('Camera', {keys: cowKeys, cowList: cowList})}>
         <Text style={styles.buttonText}>Camera</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
 
-    <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>
-        <Text style={styles.buttonText}>Tyhjennä tietokanta</Text>
-    </TouchableOpacity>
+    
+
+    <RightFAB title="Camera" onPress={() => navigation.navigate('Camera', {keys: cowKeys, cowList: cowList})} />
+    <LeftFAB title="Microphone" onPress={() => alert('Pressed Microphone')} />
 
     </View>
     </TouchableWithoutFeedback>

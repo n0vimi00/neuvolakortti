@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderColor: 'lightgray'
+        borderColor: '#86a68e'
     },
     rowText: {
-      
+      color: 'black'
     },
 })
