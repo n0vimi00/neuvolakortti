@@ -42,6 +42,7 @@ export default function Individual({navigation, route}) {
 
     
     function saveChanges() {
+        // Json parse used to prevent sending undefined values to database (not allowed)
         let saveData = JSON.parse(JSON.stringify({ name: cowName,
             temperature: temperature,
           }))
@@ -79,7 +80,7 @@ export default function Individual({navigation, route}) {
         <ScrollView style={styles.formArea}>
         <Text style={styles.textInputLabel}>Nimi</Text>
             <TextInput style={styles.textInput} placeholderTextColor='#a3a3a3' 
-                placeholder='Vasikan nimi (valinnainen)' // placeholder visible if value is null!
+                placeholder='Vasikan nimi (valinnainen)'
                 value={cowName} onChangeText={setCowName}/>
 
             <Text style={styles.textInputLabel}>Ruumiinlämpö (°C)</Text>
@@ -97,9 +98,6 @@ export default function Individual({navigation, route}) {
             <TouchableOpacity style={styles.grayButton} onPress={() => removeThisCow()}>
                 <Text style={styles.buttonText}>Poista vasikka tietokannasta</Text>
             </TouchableOpacity>
-            {/* <Button title="Save & Return" onPress={() => saveChanges()}/> */}
-            {/* <Button title="Save & Return" onPress={() => navigation.navigate('Home')}/> */}
-            {/* <Button title ="Remove this cow from database" onPress={() => removeThisCow()} /> */}
             
             </ScrollView>
         </View>

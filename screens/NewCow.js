@@ -80,8 +80,9 @@ export default function Home({navigation, route}) {
         number: Number(cowNumber),
         // adding cow number also as a child value because
         // 1. cannot add empty node, so something needs to be included always
-        // 2. in the node, cow number is stored as a string. same string is changed to number and saved
-        //      as child value to help order values in an ascending order.
+        // 2. Not implemented yet: in the node, cow number is stored as a string. because of JSON settings codes
+        //    with zeros in front (like 0001) are shown at the end of the list. so this same string is changed to 
+        // number and saved as child value to help order values in an ascending order. 
         name: cowName,
         temperature: temperature,
         // trembling: trembling

@@ -12,20 +12,9 @@ export default function Home({navigation}) {
     db.ref(ROOT_REF).orderByChild('number').on('value', querySnapShot => {
       let data = querySnapShot.val() ? querySnapShot.val(): {};
       let cows = {...data};
-      // console.log("Cows:");
-      // console.log(cows);
       setCowList(cows);
     })
   }, []);
-
-  
- /*  useEffect(() => {
-    if (cowList) {
-        console.log("cowList:");
-    console.log(cowList)
-    }
-  
-  }, [cowList]) */
 
   let cowKeys = Object.keys(cowList);
   
@@ -53,24 +42,8 @@ export default function Home({navigation}) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={styles.main}>
-      {/* <Text>{JSON.stringify(cowList)}</Text> */}
       <Text style={styles.header}>Tilanne</Text>
-     {/*  <Text>Lisää uusi vasikka tietokantaan</Text>
-      <TextInput placeholder='Nelinumeroinen korvanumero' value={cowNumber}
-        onChangeText={setCowNumber} keyboardType='numeric' />
-      <TextInput placeholder='Vasikan nimi (valinnainen)' value={cowName}
-        onChangeText={setCowName}/>
-      <TextInput placeholder='Vasikan ruumiinlämpö (valinnainen)' value={temperature}
-        onChangeText={setTemperature} keyboardType='numeric' /> */}
-
-        
-     {/*  <Text>Trembling?</Text>
-      <Radiobutton options={tremblingOptions} 
-        onPress={(value) => {setTrembling(value)}} /> */}
-
-      {/* <Button title="Lisää vasikka" onPress={() => addNewCow()} /> */}
-
-    {/* <Text style={styles.subHeader}>Tilanne</Text> */}      
+    
     <Text style={styles.subHeader}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
     <Text style={{marginTop: 20}}>Kaikki vasikat</Text>
 

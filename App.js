@@ -30,11 +30,6 @@ export default function App() {
             title: "Home",
             headerTitle: "Vasikan neuvolakortti",
             headerRight: () => (
-             /*  <Button
-                onPress={() => navigate('NewCow')}
-                title=" + Lisää uusi "
-                color="#008746"
-                /> */
                 <AddButton />
             ),
           }} 

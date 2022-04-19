@@ -32,7 +32,7 @@ export default function Camera({navigation, route}) {
     },[])
   
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (route.params?.keys) {
             setAllCows(route.params?.keys);
             // alert(JSON.stringify(route.params?.keys));
@@ -42,7 +42,7 @@ export default function Camera({navigation, route}) {
             // setIndex(route.params?.key)
             // // setTrembling(route.params?.cow.trembling);
         }
-      }, [route.params?.keys]);
+      }, [route.params?.keys]); */
 
 
 
@@ -142,13 +142,10 @@ export default function Camera({navigation, route}) {
   // Four-number code detected
  
   async function handleCodeDetected(code) {
-  //  alert('Code found: '+ code);
     SetDetectedCode(code);
   }
 
 // What to do when a code is detected? Following actions here ...
-  // Here navigation takes user back to Home Screen and sends the code as a parameter + shows the code there
-  // In a real situation this could send the user to another Screen to edit the information of the calf?
   useEffect(() => {
     if (detectedCode) {
         if (cowList[detectedCode]) {
