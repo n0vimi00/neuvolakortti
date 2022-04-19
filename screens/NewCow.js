@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Text,View,StyleSheet,Button,TouchableOpacity, TextInput, Alert, ScrollView, TouchableWithoutFeedback,Keyboard} from 'react-native';
-import {db, ROOT_REF} from './firebase/Config';
+import {db, ROOT_REF} from '../firebase/Config';
 import { ref, set } from "firebase/database";
-import { CowRow } from './CowRow';
-import styles from './style'
-import Radiobutton from './Radiobutton';
+import styles from '../style'
 
 export default function Home({navigation}) {
 

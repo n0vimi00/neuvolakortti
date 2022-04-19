@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Button, Pressable, TouchableOpacity, ScrollView, TextInput} from 'react-native';
-import {db, ROOT_REF} from './firebase/Config';
+import {db, ROOT_REF} from '../firebase/Config';
 import { ref, update } from "firebase/database";
-import Radiobutton from './Radiobutton';
-import styles from './style';
+import Radiobutton from '../components/Radiobutton';
+import styles from '../style';
 
 export default function Individual({navigation, route}) {
     const [currentCow, setCurrentCow] = useState([]);

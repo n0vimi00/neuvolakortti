@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Button, TouchableOpacity, ActivityIndicator} from 'react-native';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './Home';
-import Individual from './Individual';
-import NewCow from './NewCow';
-import AddButton from './AddButton';
+import Home from './screens/Home';
+import Individual from './screens/Individual';
+import NewCow from './screens/NewCow';
+import AddButton from './components/AddButton';
 
 export default function App({navigation}) {
   const Stack = createNativeStackNavigator();

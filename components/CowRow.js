@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {db, ROOT_REF} from './firebase/Config';
+import {db, ROOT_REF} from '../firebase/Config';
 
 // A single row for rendering cow information on the main list
 export const CowRow = ({cowNumber, cowName, temperature}) => {

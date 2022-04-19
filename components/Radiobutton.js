@@ -1,6 +1,7 @@
 import {Text, View, Pressable, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 
+// Custom radio button for trembling option maybe? If trembling requires yes/no answer
 export default function Radiobutton({options, onPress}) {
     const [value, setValue] = useState(null);
 
