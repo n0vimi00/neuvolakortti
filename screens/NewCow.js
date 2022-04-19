@@ -3,6 +3,7 @@ import {Text,View,StyleSheet,Button,TouchableOpacity, TextInput, Alert, ScrollVi
 import {db, ROOT_REF} from '../firebase/Config';
 import { ref, set } from "firebase/database";
 import styles from '../style'
+import LeftFAB from '../components/LeftFAB';
 
 export default function Home({navigation, route}) {
 
@@ -133,6 +134,8 @@ export default function Home({navigation, route}) {
             </TouchableOpacity>
         </View>
     
+        {/* <RightFAB title="Camera" onPress={() => navigation.navigate('Camera')} /> */}
+    <LeftFAB title="Microphone" onPress={() => alert('Pressed Microphone')} />
         </View>
     </TouchableWithoutFeedback>
    

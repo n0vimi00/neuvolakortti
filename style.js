@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     rowText: {
       
     },
+    titleRow: {
+        flexDirection: 'row'
+    },
     header: {
         fontSize: 20,
     },

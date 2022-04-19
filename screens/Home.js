@@ -79,7 +79,7 @@ export default function Home({navigation}) {
 
     
 
-    <RightFAB title="Camera" onPress={() => navigation.navigate('Camera', {keys: cowKeys, cowList: cowList})} />
+    <RightFAB title="Camera" onPress={() => navigation.navigate('Camera')} />
     <LeftFAB title="Microphone" onPress={() => alert('Pressed Microphone')} />
 
     </View>

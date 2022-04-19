@@ -4,6 +4,7 @@ import {db, ROOT_REF} from '../firebase/Config';
 import { ref, update } from "firebase/database";
 import Radiobutton from '../components/Radiobutton';
 import styles from '../style';
+import LeftFAB from '../components/LeftFAB';
 
 export default function Individual({navigation, route}) {
     const [currentCow, setCurrentCow] = useState([]);
@@ -75,7 +76,17 @@ export default function Individual({navigation, route}) {
 
     return (
         <View style={styles.main}>
-            <Text style={styles.header}>Vasikan numero: {index}</Text>
+            <View style={styles.titleRow}>            
+                <Text style={styles.header}># {index}</Text>
+                <View style={{justifyContent: 'flex-end',position: "absolute", right: 20,}}>
+                    <Text style={{fontSize: 15, color: '#8c0010'}} onPress={() => removeThisCow()}>Poista vasikka</Text>
+                </View>
+
+                {/* <TouchableOpacity style={styles.grayButton} onPress={() => removeThisCow()}>
+                    <Text style={styles.buttonText}>Poista vasikka tietokannasta</Text>
+                </TouchableOpacity> */}
+
+            </View>
 
         <ScrollView style={styles.formArea}>
         <Text style={styles.textInputLabel}>Nimi</Text>
@@ -92,14 +103,19 @@ export default function Individual({navigation, route}) {
             <Radiobutton options={tremblingOptions} value={trembling}
                 onPress={(value) => {setTrembling(value)}} /> */}
             
-            <TouchableOpacity style={styles.customButton} onPress={() => saveChanges()}>
-                <Text style={styles.buttonText}>Tallenna muutokset</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.grayButton} onPress={() => removeThisCow()}>
-                <Text style={styles.buttonText}>Poista vasikka tietokannasta</Text>
-            </TouchableOpacity>
             
-            </ScrollView>
+            
+            
+            {/* <RightFAB title="Camera" onPress={() => navigation.navigate('Camera')} /> */}
+        <TouchableOpacity style={styles.customButton} onPress={() => saveChanges()}>
+            <Text style={styles.buttonText}>Tallenna muutokset</Text>
+        </TouchableOpacity>       
+                    
+            </ScrollView>     
+            
+            
+            <LeftFAB title="Microphone" onPress={() => alert('Pressed Microphone')} />
+
         </View>
     )
 }
