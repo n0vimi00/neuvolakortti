@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Text,View,StyleSheet,Button,TouchableOpacity, TextInput, Alert, ScrollView, TouchableWithoutFeedback,Keyboard} from 'react-native';
+import {Text,View,TouchableOpacity,Alert, ScrollView, TouchableWithoutFeedback,Keyboard} from 'react-native';
 import {db, ROOT_REF} from '../firebase/Config';
-import { ref, set, orderByValue, orderByChild, orderByKey } from "firebase/database";
 import { CowRow } from '../components/CowRow';
 import styles from '../style'
-//import Radiobutton from '../components/Radiobutton';
 
 export default function Home({navigation}) {
   const [cowList, setCowList] = useState({});
@@ -14,19 +12,20 @@ export default function Home({navigation}) {
     db.ref(ROOT_REF).orderByChild('number').on('value', querySnapShot => {
       let data = querySnapShot.val() ? querySnapShot.val(): {};
       let cows = {...data};
-      console.log("Cows:");
-      console.log(cows);
+      // console.log("Cows:");
+      // console.log(cows);
       setCowList(cows)
     })
   }, []);
 
-  useEffect(() => {
+  
+ /*  useEffect(() => {
     if (cowList) {
         console.log("cowList:");
     console.log(cowList)
     }
   
-  }, [cowList])
+  }, [cowList]) */
 
   let cowKeys = Object.keys(cowList);
   
@@ -95,6 +94,10 @@ export default function Home({navigation}) {
         null
       )}
     </ScrollView>
+
+    <TouchableOpacity style={styles.grayButton} onPress={() => navigation.navigate('Camera')}>
+        <Text style={styles.buttonText}>Camera</Text>
+    </TouchableOpacity>
 
     <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>
         <Text style={styles.buttonText}>Tyhjennä tietokanta</Text>

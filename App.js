@@ -5,8 +5,9 @@ import Home from './screens/Home';
 import Individual from './screens/Individual';
 import NewCow from './screens/NewCow';
 import AddButton from './components/AddButton';
+import Camera from './screens/Camera';
 
-export default function App({navigation}) {
+export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
@@ -57,6 +58,16 @@ export default function App({navigation}) {
             headerTitle: "Muokkaa vasikan tietoja"
           }} 
         />  
+
+      <Stack.Screen
+          name="Camera"
+          component={Camera}
+          options={{
+            title: "Camera",
+            headerTitle: "Skannaa korvanumero"
+          }} 
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
