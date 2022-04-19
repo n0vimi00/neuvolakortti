@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, LogBox} from 'react-native';
+import {db, ROOT_REF} from '../firebase/Config';
 import { RNCamera } from 'react-native-camera';
 import { useCamera } from 'react-native-camera-hooks';
 import TextRecognition from 'react-native-text-recognition';// <- npm install react-native-text-recognition@ml 
@@ -7,12 +8,22 @@ import TextRecognition from 'react-native-text-recognition';// <- npm install re
 
 
 export default function Camera({navigation, route}) {
-  const [imagePath,setImagePath] = useState(null);
-  const [{cameraRef},{takePicture}] = useCamera(null);
-  const [detectedCode, SetDetectedCode] = useState(null);
-  const [scanning, setScanning] = useState(false);
+    const [allCows, setAllCows] = useState({}); // keys
 
+
+    const [imagePath,setImagePath] = useState(null);
+    const [{cameraRef},{takePicture}] = useCamera(null);
+    const [detectedCode, SetDetectedCode] = useState(null);
+    const [scanning, setScanning] = useState(false);
+
+
+    const [cowList, setCowList] = useState({});
     useEffect(() => {
+        db.ref(ROOT_REF).on('value', querySnapShot => {
+            let data = querySnapShot.val() ? querySnapShot.val() : {};
+            let cows = {...data};
+            setCowList(cows);
+            })
         // Not showing this popup warning when opening camera-screen on a real phone (still visible in console)
         LogBox.ignoreLogs([ 
             "ViewPropTypes will be removed",
@@ -20,6 +31,21 @@ export default function Camera({navigation, route}) {
 
     },[])
   
+
+    useEffect(() => {
+        if (route.params?.keys) {
+            setAllCows(route.params?.keys);
+            // alert(JSON.stringify(route.params?.keys));
+            // setCurrentCow(route.params?.cow);
+            // setCowName(route.params?.cow.name);
+            // setTemperature(route.params?.cow.temperature);
+            // setIndex(route.params?.key)
+            // // setTrembling(route.params?.cow.trembling);
+        }
+      }, [route.params?.keys]);
+
+
+
 // User takes a picture and the path to said image is saved
   const captureHandle = async () => {
     try {
@@ -124,13 +150,17 @@ export default function Camera({navigation, route}) {
   // Here navigation takes user back to Home Screen and sends the code as a parameter + shows the code there
   // In a real situation this could send the user to another Screen to edit the information of the calf?
   useEffect(() => {
-      if (detectedCode) {
-        navigation.navigate({
-            name: 'Home',
-            params: { code: detectedCode },
-            merge: true,
-          });
+    if (detectedCode) {
+        if (cowList[detectedCode]) {
+            // Cow exists, moving to edit cow information
+            navigation.navigate('Individual', {key: detectedCode, cow: cowList[detectedCode]});
+        } else {
+            // Cow doesn't exist, moving to add new cow
+            navigation.navigate('NewCow', {cowNumber: detectedCode});
+        }
+
     }
+   
   }, [detectedCode])
 
   return (

@@ -8,33 +8,61 @@ import styles from '../style';
 export default function Individual({navigation, route}) {
     const [currentCow, setCurrentCow] = useState([]);
     const [index, setIndex] = useState(null);
-    const [cowName, setCowName] = useState(null);
-    const [temperature, setTemperature] = useState(null);
+    const [cowName, setCowName] = useState('');
+    const [temperature, setTemperature] = useState('');
     // const [trembling, setTrembling] = useState(null);
     // const tremblingOptions = [
     //     {label: 'Yes', value: true},
     //     {label: 'No', value: false}
     //   ]; //Need to find a way to not have to repeat the options on every screen
 
+    
+    const [cowList, setCowList] = useState({});
+    useEffect(() => {
+            db.ref(ROOT_REF).on('value', querySnapShot => {
+            let data = querySnapShot.val() ? querySnapShot.val() : {};
+            let cows = {...data};
+            setCowList(cows);
+            })
+            if (route.params?.cowNumber) {
+                // alert(JSON.stringify(cowList));
+                // setIndex(route.params?.cowNumber);
+            }
+        }, []);
+    // When coming from camera screen with scanned code
+   /*  useEffect(() => {
+        if (route.params?.cowNumber) {
+        alert(JSON.stringify(cowList));
+        setCowName(cowList[index].cowName);
+        setTemperature(cowList[index].temperature);
+        }
+      }, [route.params?.cowNumber]);
+ */
+   
+
+    
     function saveChanges() {
-        update(ref(db, ROOT_REF + index), { // index = cowNumber
+        let saveData = JSON.parse(JSON.stringify({ name: cowName,
+            temperature: temperature,
+          }))
+
+        update(ref(db, ROOT_REF + index), saveData)
+     /*  update(ref(db, ROOT_REF + index), { // index = cowNumber
+            
         name: cowName,
         temperature: temperature,
         // trembling: trembling
-      })
+      }) */
       .then(navigation.navigate('Home'));
     }
     
 
-
     useEffect(() => {
         if (route.params?.cow) {
-           // alert(JSON.stringify(route.params?.cow));
             setCurrentCow(route.params?.cow);
             setCowName(route.params?.cow.name);
             setTemperature(route.params?.cow.temperature);
-            setIndex(route.params?.key)
-            // setTrembling(route.params?.cow.trembling);
+            setIndex(route.params?.key);
         }
       }, [route.params?.cow]);
 

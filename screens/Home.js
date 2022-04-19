@@ -14,7 +14,7 @@ export default function Home({navigation}) {
       let cows = {...data};
       // console.log("Cows:");
       // console.log(cows);
-      setCowList(cows)
+      setCowList(cows);
     })
   }, []);
 
@@ -72,7 +72,7 @@ export default function Home({navigation}) {
 
     {/* <Text style={styles.subHeader}>Tilanne</Text> */}      
     <Text style={styles.subHeader}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
-    <Text>Kaikki vasikat</Text>
+    <Text style={{marginTop: 20}}>Kaikki vasikat</Text>
 
 
 
@@ -95,7 +95,7 @@ export default function Home({navigation}) {
       )}
     </ScrollView>
 
-    <TouchableOpacity style={styles.grayButton} onPress={() => navigation.navigate('Camera')}>
+    <TouchableOpacity style={styles.grayButton} onPress={() => navigation.navigate('Camera', {keys: cowKeys, cowList: cowList})}>
         <Text style={styles.buttonText}>Camera</Text>
     </TouchableOpacity>
 

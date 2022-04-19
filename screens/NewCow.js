@@ -4,11 +4,11 @@ import {db, ROOT_REF} from '../firebase/Config';
 import { ref, set } from "firebase/database";
 import styles from '../style'
 
-export default function Home({navigation}) {
+export default function Home({navigation, route}) {
 
   const [cowNumber, setCowNumber] = useState('');
-  const [cowName, setCowName] = useState(null);
-  const [temperature, setTemperature] = useState(null);
+  const [cowName, setCowName] = useState('');
+  const [temperature, setTemperature] = useState('');
 //   const [trembling, setTrembling] = useState(null);
 //   const tremblingOptions = [
 //     {label: 'Yes', value: true},
@@ -24,6 +24,12 @@ export default function Home({navigation}) {
       setCowList(cows);
     })
   }, []);
+
+  useEffect(() => {
+    if (route.params?.cowNumber) {
+      setCowNumber(route.params?.cowNumber);
+    }
+  }, [route.params?.cowNumber]);
 
   let cowKeys = Object.keys(cowList);
 
@@ -83,8 +89,8 @@ export default function Home({navigation}) {
 
       // Nullifying all values after submission
       setCowNumber('');
-      setCowName(null);
-      setTemperature(null);
+      setCowName('');
+      setTemperature('');
 
       // New cow has been added, navigating back to home screen
       navigation.navigate("Home");
