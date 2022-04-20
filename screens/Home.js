@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Text,View,TouchableOpacity,Alert, ScrollView, TouchableWithoutFeedback,Keyboard,ActivityIndicator} from 'react-native';
+import {Text,View,TouchableOpacity,Alert, ScrollView, Image, TouchableWithoutFeedback,Keyboard,ActivityIndicator} from 'react-native';
 import {db, ROOT_REF} from '../firebase/Config';
 import { CowRow } from '../components/CowRow';
 import styles from '../style'
 import MicFAB from '../components/MicFAB';
 import CameraFAB from '../components/CameraFAB';
+import calfHead from '../icons/calfHead.png';
 
 export default function Home({navigation}) {
   const [cowList, setCowList] = useState({});
@@ -48,7 +49,7 @@ export default function Home({navigation}) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={styles.main}>
-      <Text style={styles.header}>Tilanne</Text>
+      <Text style={styles.subHeader}>Tilanne</Text>
     
     {loadingStatus ? <>
     <Text>Ladataan tietokantaa ...
@@ -57,7 +58,10 @@ export default function Home({navigation}) {
     : 
       <>
       {/* CALF LIST */}
-    <Text style={styles.subHeader}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
+    <View style={styles.overview}>
+          <Image source={calfHead} style={styles.overviewImage}/>    
+          <Text style={styles.overviewText}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
+    </View>
     <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>
         <Text style={styles.buttonText}>Tyhjennä tietokanta</Text>
     </TouchableOpacity>

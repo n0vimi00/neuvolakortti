@@ -11,6 +11,9 @@ export default function Individual({navigation, route}) {
     const [index, setIndex] = useState(null);
     const [cowName, setCowName] = useState('');
     const [temperature, setTemperature] = useState('');
+
+    const [inProgress, setInProgress] = useState(true);
+
     // const [trembling, setTrembling] = useState(null);
     // const tremblingOptions = [
     //     {label: 'Yes', value: true},
@@ -53,22 +56,30 @@ export default function Individual({navigation, route}) {
        // }, [route.params?.cow]);
     
     function saveChanges() {
-        // Json parse used to prevent sending undefined values to database (not allowed)
+        // Json parse used to prevent sending undefined values to database (undefined is not allowed)
         let saveData = JSON.parse(JSON.stringify({ name: cowName,
             temperature: temperature,
           }))
-
-        update(ref(db, ROOT_REF + index), saveData)
+        if (inProgress) {
+            update(ref(db, ROOT_REF + index), saveData);
+        }
+        
+        setInProgress(false);
      /*  update(ref(db, ROOT_REF + index), { // index = cowNumber
             
         name: cowName,
         temperature: temperature,
         // trembling: trembling
       }) */
-      navigation.navigate('Home');
-      return; 
+     // navigation.navigate('Home');
+     // return; 
     }
     
+    useEffect(() => {
+        if (!inProgress) {
+            navigation.navigate('Home');
+        }
+    }, [inProgress])
 
      // asking for confirmation first before removing calf
   const confirmBeforeRemove = () => Alert.alert(
@@ -114,7 +125,7 @@ export default function Individual({navigation, route}) {
 
             <Text style={styles.textInputLabel}>Ruumiinlämpö (°C)</Text>
             <TextInput style={styles.textInput} placeholderTextColor='#a3a3a3' 
-                placeholder='Temperature of the cow (optional)' value={temperature}
+                placeholder='Vasikan ruumiinlämpö (valinnainen)' value={temperature}
                 onChangeText={setTemperature} keyboardType='numeric' />
            
            {/* <Text>Trembling?</Text>

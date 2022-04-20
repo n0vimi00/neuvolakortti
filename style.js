@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     contentContainer: {
       marginBottom: 70,
       padding: 10,
-      backgroundColor: '#dff0e3',
+      backgroundColor: '#e8ede9',
       borderRadius: 10,
     },
     textInputLabel: {
@@ -72,6 +72,31 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 17,
         marginHorizontal: 4
+    },
+    overviewImage: {
+        width: 90,
+        height: 90,
+        marginRight: 10,
+        backgroundColor: '#edf2ee',
+        borderRadius: 45,
+        alignSelf: 'center',
+        borderWidth: 4,
+        borderColor: '#a6baaa' 
+       // borderColor: '#e8ede9' 
+    },
+    overview: {
+        flexDirection: 'row',
+        padding: 5,
+        alignItems: 'center',
+        backgroundColor: '#e8ede9',
+        borderRadius: 20,
+        shadowColor: 'black',
+        elevation: 10,
+        marginVertical: 10
+    },
+    overviewText: {
+        color: 'black',
+        fontSize: 14,
     }
 })
 

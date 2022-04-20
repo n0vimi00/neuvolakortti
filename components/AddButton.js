@@ -1,14 +1,16 @@
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import plus from '../icons/plus.png';
 
 
 export default function AddButton() {
     const navigation = useNavigation();
     return(
-        <TouchableOpacity style={styles.AddButton} onPress={() => navigation.navigate('NewCow')}>        
-            <Text style={styles.plus}>+ </Text>
-            <Text style={styles.text}>Lisää uusi</Text>
+        <TouchableOpacity style={styles.AddButton} onPress={() => navigation.navigate('NewCow')}>     
+            <Image source={plus} style={styles.plusIcon}/>   
+            {/* <Text style={styles.plus}>+ </Text>
+            <Text style={styles.text}>Lisää uusi</Text> */}
         </TouchableOpacity>
     )
 }
@@ -16,7 +18,7 @@ export default function AddButton() {
 const styles = StyleSheet.create({
     AddButton: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+      //  backgroundColor: 'white',
         padding: 10,
         borderRadius: 10,
         color: '#2e2e2e'
@@ -27,5 +29,11 @@ const styles = StyleSheet.create({
     plus: {
         color: '#2e2e2e',
         fontWeight: 'bold',
+    },
+    plusIcon: {
+        width: 30,
+        height: 30,
+        backgroundColor: '#82d196',
+        borderRadius: 15
     }
 })

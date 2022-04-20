@@ -9,6 +9,8 @@ export default function Home({navigation, route}) {
   const [cowNumber, setCowNumber] = useState('');
   const [cowName, setCowName] = useState('');
   const [temperature, setTemperature] = useState('');
+  const [inProgress, setInProgress] = useState(true);
+
 //   const [trembling, setTrembling] = useState(null);
 //   const tremblingOptions = [
 //     {label: 'Yes', value: true},
@@ -94,7 +96,8 @@ export default function Home({navigation, route}) {
       })
 
       // New cow has been added, navigating back to home screen
-      navigation.navigate("Home")
+      setInProgress(false);
+    //  navigation.navigate("Home")
 
     }  else {
       // alert when number field is empty and user tries to add new cow
@@ -102,7 +105,12 @@ export default function Home({navigation, route}) {
     }
   }
 
- 
+  useEffect(() => {
+    if (!inProgress) {
+        navigation.navigate('Home');
+    }
+}, [inProgress])
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
