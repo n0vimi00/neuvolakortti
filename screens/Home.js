@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text,View,TouchableOpacity,Alert, ScrollView, TouchableWithoutFeedback,Keyboard} from 'react-native';
+import {Text,View,TouchableOpacity,Alert, ScrollView, TouchableWithoutFeedback,Keyboard,ActivityIndicator} from 'react-native';
 import {db, ROOT_REF} from '../firebase/Config';
 import { CowRow } from '../components/CowRow';
 import styles from '../style'
@@ -49,7 +49,11 @@ export default function Home({navigation}) {
     <View style={styles.main}>
       <Text style={styles.header}>Tilanne</Text>
     
-    {loadingStatus ? <Text>Ladataan tietokantaa ...</Text> : 
+    {loadingStatus ? <>
+    <Text>Ladataan tietokantaa ...
+    <ActivityIndicator style={{alignSelf:'center'}} size="small" color="#6ad49f" /></Text> 
+    </> 
+    : 
       <>
       {/* CALF LIST */}
     <Text style={styles.subHeader}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
