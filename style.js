@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     contentContainer: {
-      marginBottom: 100,
+      marginBottom: 70,
       padding: 10,
       backgroundColor: '#dff0e3',
       borderRadius: 10,
@@ -48,28 +48,31 @@ const styles = StyleSheet.create({
     customButton: {
         backgroundColor: '#02ab56',
         alignItems: 'center',
-        width: '50%',
         alignSelf: 'center',
         marginVertical: 10,
-        marginHorizontal: 10,
+        paddingHorizontal: 10,
         paddingVertical: 12,
         borderRadius: 10,
+        shadowColor: 'black',
+        elevation: 2,
     },
     grayButton: {
         backgroundColor: 'darkgrey',
         alignItems: 'center',
-        width: '50%',
         alignSelf: 'center',
         marginVertical: 10,
-        marginHorizontal: 10,
+        paddingHorizontal: 10,
         paddingVertical: 12,
         borderRadius: 10,
+        shadowColor: 'black',
+        elevation: 2,
     },
     buttonText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 17
-    },
+        fontSize: 17,
+        marginHorizontal: 4
+    }
 })
 
 export default styles;

@@ -3,12 +3,13 @@ import {Text,View,TouchableOpacity,Alert, ScrollView, TouchableWithoutFeedback,K
 import {db, ROOT_REF} from '../firebase/Config';
 import { CowRow } from '../components/CowRow';
 import styles from '../style'
-import LeftFAB from '../components/LeftFAB';
-import RightFAB from '../components/RightFAB';
+import MicFAB from '../components/MicFAB';
+import CameraFAB from '../components/CameraFAB';
 
 export default function Home({navigation}) {
   const [cowList, setCowList] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true); 
+  const [microphoneOn, setMicrophoneOn] = useState(true);
 
   useEffect(() => {
     if (loadingStatus) {
@@ -90,12 +91,10 @@ export default function Home({navigation}) {
     </TouchableOpacity> */}
 
     
-
-    <RightFAB title="Camera" onPress={() => navigation.navigate('Camera')} />
-    <LeftFAB title="Microphone" onPress={() => alert('Pressed Microphone')} />
-
+      <CameraFAB title="Camera" onPress={() => navigation.navigate('Camera')} />
+      <MicFAB title={microphoneOn ? "microphone-on" : "microphone-off"} 
+        onPress={() => setMicrophoneOn(!microphoneOn)} />
     </View>
     </TouchableWithoutFeedback>
   )
 }
-

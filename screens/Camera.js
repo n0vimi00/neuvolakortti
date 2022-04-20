@@ -30,20 +30,6 @@ export default function Camera({navigation, route}) {
         ])
 
     },[])
-  
-
-    /* useEffect(() => {
-        if (route.params?.keys) {
-            setAllCows(route.params?.keys);
-            // alert(JSON.stringify(route.params?.keys));
-            // setCurrentCow(route.params?.cow);
-            // setCowName(route.params?.cow.name);
-            // setTemperature(route.params?.cow.temperature);
-            // setIndex(route.params?.key)
-            // // setTrembling(route.params?.cow.trembling);
-        }
-      }, [route.params?.keys]); */
-
 
 
 // User takes a picture and the path to said image is saved
@@ -68,7 +54,6 @@ export default function Camera({navigation, route}) {
             // NO TEXT DETECTED
             const result = await TextRecognition.recognize(imagePath);
             if (result.length === 0) {
-             // alert('Error. Nothing detected. Please try again.');
              nothingDetected(); 
              setScanning(false);
               return;
@@ -114,7 +99,6 @@ export default function Camera({navigation, route}) {
               } else {
                 // No codes detected (text was detected but it did not contain a code)
                 nothingDetected(); 
-                //alert('Error. No suitable codes detected. Code must be 4-digits in length and can contain only numbers.');
               }
           } catch (e) {
             alert(e);
@@ -171,7 +155,7 @@ export default function Camera({navigation, route}) {
             ? <>
               <ActivityIndicator size="large" color="#fff"/>
               <Text style={styles.scanStatus}>
-                Scanning
+                Havaitaan koodia
               </Text>
               </>
             : null}

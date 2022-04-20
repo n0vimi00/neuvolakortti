@@ -3,10 +3,9 @@ import {Text,View,StyleSheet,Button,TouchableOpacity, TextInput, Alert, ScrollVi
 import {db, ROOT_REF} from '../firebase/Config';
 import { ref, set } from "firebase/database";
 import styles from '../style'
-import LeftFAB from '../components/LeftFAB';
+import MicFAB from '../components/MicFAB';
 
 export default function Home({navigation, route}) {
-
   const [cowNumber, setCowNumber] = useState('');
   const [cowName, setCowName] = useState('');
   const [temperature, setTemperature] = useState('');
@@ -18,7 +17,12 @@ export default function Home({navigation, route}) {
 
   const [cowList, setCowList] = useState({});
 
-  useEffect(() => {
+  useEffect(() => { // get cowkeys from home.js instead of fetching database again here...
+    if (route.params?.cowNumber) { 
+      // parameter exists if user arrives from camera screen after scanning code
+      // otherwise value is empty by default
+      setCowNumber(route.params?.cowNumber);
+    }
     db.ref(ROOT_REF).on('value', querySnapShot => {
       let data = querySnapShot.val() ? querySnapShot.val() : {};
       let cows = {...data};
@@ -26,12 +30,12 @@ export default function Home({navigation, route}) {
     })
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (route.params?.cowNumber) {
       setCowNumber(route.params?.cowNumber);
     }
   }, [route.params?.cowNumber]);
-
+ */
   let cowKeys = Object.keys(cowList);
 
   function checkCorrectFormat(number) {
@@ -87,15 +91,10 @@ export default function Home({navigation, route}) {
         name: cowName,
         temperature: temperature,
         // trembling: trembling
-      });
-
-      // Nullifying all values after submission
-      setCowNumber('');
-      setCowName('');
-      setTemperature('');
+      })
 
       // New cow has been added, navigating back to home screen
-      navigation.navigate("Home");
+      navigation.navigate("Home")
 
     }  else {
       // alert when number field is empty and user tries to add new cow
@@ -134,8 +133,8 @@ export default function Home({navigation, route}) {
             </TouchableOpacity>
         </View>
     
-        {/* <RightFAB title="Camera" onPress={() => navigation.navigate('Camera')} /> */}
-    <LeftFAB title="Microphone" onPress={() => alert('Pressed Microphone')} />
+      {/* no global functionality to toggling microphone yet; useState in App.js? */}
+    <MicFAB title="microphone-on" onPress={() => alert('Pressed Microphone')} />
         </View>
     </TouchableWithoutFeedback>
    

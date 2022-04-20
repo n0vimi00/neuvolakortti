@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Button, Pressable, TouchableOpacity, ScrollView, TextInput} from 'react-native';
+import {View, Text, StyleSheet, Button, Pressable, TouchableOpacity, ScrollView, TextInput, Alert} from 'react-native';
 import {db, ROOT_REF} from '../firebase/Config';
 import { ref, update } from "firebase/database";
 import Radiobutton from '../components/Radiobutton';
 import styles from '../style';
-import LeftFAB from '../components/LeftFAB';
+import MicFAB from '../components/MicFAB';
 
 export default function Individual({navigation, route}) {
     const [currentCow, setCurrentCow] = useState([]);
@@ -18,7 +18,7 @@ export default function Individual({navigation, route}) {
     //   ]; //Need to find a way to not have to repeat the options on every screen
 
     
-    const [cowList, setCowList] = useState({});
+    /* const [cowList, setCowList] = useState({});
     useEffect(() => {
             db.ref(ROOT_REF).on('value', querySnapShot => {
             let data = querySnapShot.val() ? querySnapShot.val() : {};
@@ -29,7 +29,7 @@ export default function Individual({navigation, route}) {
                 // alert(JSON.stringify(cowList));
                 // setIndex(route.params?.cowNumber);
             }
-        }, []);
+        }, []); */
     // When coming from camera screen with scanned code
    /*  useEffect(() => {
         if (route.params?.cowNumber) {
@@ -40,7 +40,17 @@ export default function Individual({navigation, route}) {
       }, [route.params?.cowNumber]);
  */
    
-
+    useEffect(() => {
+            if (route.params?.cow) {
+                setCurrentCow(route.params?.cow);
+                setCowName(route.params?.cow.name);
+                setTemperature(route.params?.cow.temperature);
+                setIndex(route.params?.key);
+            } else {
+                alert('Virhe. Vasikan tietoja ei voitu noutaa.');
+            }
+        }, [])
+       // }, [route.params?.cow]);
     
     function saveChanges() {
         // Json parse used to prevent sending undefined values to database (not allowed)
@@ -55,23 +65,31 @@ export default function Individual({navigation, route}) {
         temperature: temperature,
         // trembling: trembling
       }) */
-      .then(navigation.navigate('Home'));
+      navigation.navigate('Home');
+      return; 
     }
     
 
-    useEffect(() => {
-        if (route.params?.cow) {
-            setCurrentCow(route.params?.cow);
-            setCowName(route.params?.cow.name);
-            setTemperature(route.params?.cow.temperature);
-            setIndex(route.params?.key);
-        }
-      }, [route.params?.cow]);
+     // asking for confirmation first before removing calf
+  const confirmBeforeRemove = () => Alert.alert(
+    "Tietojen poistaminen", "Oletko varma, että haluat poistaa vasikan #"+index+ " tietokannasta?", 
+    [
+      {
+        text: "Ei, älä poista.",
+        onPress: () => console.log('Cancel pressed'),
+      },
+      {
+        text: "Kyllä, poista.", onPress: () => removeThisCow()
+      }
+  ],
+  {cancelable: false}
+  );
 
 
       function removeThisCow() {
         db.ref(ROOT_REF + index).remove();
         navigation.navigate('Home');
+        return;
       }
 
     return (
@@ -79,7 +97,7 @@ export default function Individual({navigation, route}) {
             <View style={styles.titleRow}>            
                 <Text style={styles.header}># {index}</Text>
                 <View style={{justifyContent: 'flex-end',position: "absolute", right: 20,}}>
-                    <Text style={{fontSize: 15, color: '#8c0010'}} onPress={() => removeThisCow()}>Poista vasikka</Text>
+                    <Text style={{fontSize: 15, color: '#8c0010'}} onPress={() => confirmBeforeRemove()}>Poista vasikka</Text>
                 </View>
 
                 {/* <TouchableOpacity style={styles.grayButton} onPress={() => removeThisCow()}>
@@ -113,8 +131,8 @@ export default function Individual({navigation, route}) {
                     
             </ScrollView>     
             
-            
-            <LeftFAB title="Microphone" onPress={() => alert('Pressed Microphone')} />
+            {/* no global functionality to toggling microphone yet; useState in App.js? */}
+            <MicFAB title="microphone-on" onPress={() => alert('Pressed Microphone')} />
 
         </View>
     )
