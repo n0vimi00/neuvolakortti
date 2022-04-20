@@ -62,9 +62,10 @@ export default function Home({navigation}) {
           <Image source={calfHead} style={styles.overviewImage}/>    
           <Text style={styles.overviewText}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
     </View>
-    <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>
+    
+    {/* <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>
         <Text style={styles.buttonText}>Tyhjennä tietokanta</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
 
     <Text style={{marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15}}>Kaikki vasikat</Text>
 
