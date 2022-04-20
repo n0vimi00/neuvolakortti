@@ -8,14 +8,17 @@ import RightFAB from '../components/RightFAB';
 
 export default function Home({navigation}) {
   const [cowList, setCowList] = useState({});
-  
+  const [loadingStatus, setLoadingStatus] = useState(true); 
 
   useEffect(() => {
-    db.ref(ROOT_REF).orderByChild('number').on('value', querySnapShot => {
+    if (loadingStatus) {
+      db.ref(ROOT_REF).orderByChild('number').on('value', querySnapShot => {
       let data = querySnapShot.val() ? querySnapShot.val(): {};
       let cows = {...data};
       setCowList(cows);
-    })
+      setLoadingStatus(false);
+    });
+    }
   }, []);
 
   let cowKeys = Object.keys(cowList);
@@ -46,6 +49,9 @@ export default function Home({navigation}) {
     <View style={styles.main}>
       <Text style={styles.header}>Tilanne</Text>
     
+    {loadingStatus ? <Text>Ladataan tietokantaa ...</Text> : 
+      <>
+      {/* CALF LIST */}
     <Text style={styles.subHeader}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
     <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>
         <Text style={styles.buttonText}>Tyhjennä tietokanta</Text>
@@ -56,7 +62,7 @@ export default function Home({navigation}) {
 
 
     <ScrollView style={styles.contentContainer}>
-      {cowKeys.length > 0 ? (
+      {cowList ? (
         cowKeys.map(key => (
         <TouchableOpacity key={key}
         onPress={() => navigation.navigate('Individual', {cow: cowList[key], key: [key]})}>
@@ -69,9 +75,11 @@ export default function Home({navigation}) {
         </TouchableOpacity>
         ))
       ) : (
-        null
+        <Text>Tietokanta on tyhjä.</Text>
       )}
     </ScrollView>
+      </>
+    }
 
     {/* <TouchableOpacity style={styles.grayButton} onPress={() => navigation.navigate('Camera', {keys: cowKeys, cowList: cowList})}>
         <Text style={styles.buttonText}>Camera</Text>
