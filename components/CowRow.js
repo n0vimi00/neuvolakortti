@@ -26,7 +26,7 @@ export const CowRow = ({cowNumber, cowName, temperature}) => {
                 {temperature ? <Text>Ruumiinlämpö: {temperature} °C</Text> : null} 
             </View>
             <View style={styles.col3}>
-               <Text style={styles.arrow}> ‣</Text> 
+               <Text style={styles.arrow}> ...  ‣</Text> 
             </View>
         </View>
     )
