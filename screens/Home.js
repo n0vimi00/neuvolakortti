@@ -61,7 +61,29 @@ export default function Home({navigation}) {
       {/* CALF LIST */}
     <View style={styles.overview}>
           <Image source={cow} style={styles.overviewImage}/>    
-          <Text style={styles.overviewText}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
+          
+          <View style={styles.overviewTotal}>
+            <View style={styles.overviewCircle} >
+              <Text style={styles.overviewCount}>{cowKeys.length}</Text>
+            </View>
+            <Text style={styles.overviewText}>YHTEENSÄ</Text>
+          </View>
+
+        {/* Hardcoded for now, can add functionality later */}
+          <View style={styles.overviewTotal}>
+            <View style={styles.overviewCircle} >
+              <Text style={styles.overviewCount}>0</Text>
+            </View>
+            <Text style={styles.overviewText}>SAIRAITA</Text>
+          </View>
+          <View style={styles.overviewTotal}>
+            <View style={styles.overviewCircle} >
+              <Text style={styles.overviewCount}>0</Text>
+            </View>
+            <Text style={styles.overviewText}>HOIDOSSA</Text>
+          </View>
+          
+          {/* <Text style={styles.overviewText}>Tietokannassa on {cowKeys.length} vasikkaa.</Text> */}
     </View>
     
     {/* <TouchableOpacity style={styles.grayButton} onPress={() => confirmDeleteAll()}>

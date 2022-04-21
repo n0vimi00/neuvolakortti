@@ -92,11 +92,36 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         shadowColor: 'black',
         elevation: 10,
-        marginVertical: 10
+        marginVertical: 10,
     },
     overviewText: {
         color: 'black',
-        fontSize: 14,
+        fontSize: 10,
+        fontWeight: 'bold'
+    },
+    overviewCircle: {
+        borderWidth: 0.5,
+        borderRadius: 25,
+        alignContent: 'center',
+        justifyContent: 'center',
+        height: 50,
+        width: 50,
+        flex: 1,
+    },
+    overviewCount: {
+        alignSelf: 'center',
+        fontSize: 15,
+        color: 'black',
+        // borderRadius: 40,
+        // borderWidth: 0.5,
+        // padding: 15,
+    },
+    overviewTotal: {
+        width: 70,
+        height: 65,
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center'
     }
 })
 

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     plusIcon: {
         width: 50,
         height: 50,
-      //  backgroundColor: '#82d196',
-        borderRadius: 15
+        backgroundColor: '#82d196',
+        borderRadius: 25
     }
 })
