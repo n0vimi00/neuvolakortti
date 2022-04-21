@@ -1,12 +1,13 @@
 import { TouchableOpacity, StyleSheet, Text, Image } from "react-native";
 import React from "react";
 import camera from '../icons/camera.png' ;
+import cameraWhite from '../icons/camera-white.png';
 
 const CameraFAB = (props) => {
     return (
         <TouchableOpacity style={styles.container}
             onPress={props.onPress}>
-            <Image source={camera} style={styles.FABicon}/>
+            <Image source={cameraWhite} style={styles.FABicon}/>
         </TouchableOpacity>
     );
 };
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 20,
         shadowColor: 'black',
-        elevation: 5,
+        elevation: 7,
         height: 75,
         width: 75
     },

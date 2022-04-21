@@ -6,6 +6,7 @@ import styles from '../style'
 import MicFAB from '../components/MicFAB';
 import CameraFAB from '../components/CameraFAB';
 import calfHead from '../icons/calfHead.png';
+import cow from '../icons/cow.png';
 
 export default function Home({navigation}) {
   const [cowList, setCowList] = useState({});
@@ -59,7 +60,7 @@ export default function Home({navigation}) {
       <>
       {/* CALF LIST */}
     <View style={styles.overview}>
-          <Image source={calfHead} style={styles.overviewImage}/>    
+          <Image source={cow} style={styles.overviewImage}/>    
           <Text style={styles.overviewText}>Tietokannassa on {cowKeys.length} vasikkaa.</Text>
     </View>
     

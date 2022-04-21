@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#edf2ee',
         borderRadius: 45,
         alignSelf: 'center',
-        borderWidth: 4,
-        borderColor: '#a6baaa' 
+        //borderWidth: 4,
+       // borderColor: '#a6baaa' 
        // borderColor: '#e8ede9' 
     },
     overview: {

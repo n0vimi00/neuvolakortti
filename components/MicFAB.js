@@ -2,6 +2,8 @@ import { TouchableOpacity, StyleSheet, Text, Image } from "react-native";
 import React from "react";
 import microphoneOn from '../icons/microphone-on.png';
 import microphoneOff from '../icons/microphone-off.png';
+import microphoneOffWhite from '../icons/microphone-off-white.png';
+import microphoneOnWhite from '../icons/microphone-on-white.png';
 
   
 const MicFAB = (props) => {
@@ -9,14 +11,14 @@ const MicFAB = (props) => {
         return (
             <TouchableOpacity style={styles.container}
             onPress={props.onPress}>
-            <Image style={styles.FABicon} source={microphoneOn}/>
+            <Image style={styles.FABicon} source={microphoneOnWhite}/>
             </TouchableOpacity>
         )
     } else if (props.title == 'microphone-off') {
         return (
             <TouchableOpacity style={styles.container}
             onPress={props.onPress}>
-            <Image style={styles.FABicon} source={microphoneOff}/>
+            <Image style={styles.FABicon} source={microphoneOffWhite}/>
             </TouchableOpacity>
         )
     }
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 20,
         shadowColor: 'black',
-        elevation: 5,
+        elevation: 7,
         height: 75,
         width: 75
     },

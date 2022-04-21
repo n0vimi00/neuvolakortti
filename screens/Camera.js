@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, LogBox} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Alert, Image, ActivityIndicator, LogBox} from 'react-native';
 import {db, ROOT_REF} from '../firebase/Config';
 import { RNCamera } from 'react-native-camera';
 import { useCamera } from 'react-native-camera-hooks';
+import cameraWhite from '../icons/camera-white.png';
+import exclamationMark from '../icons/exclamation-mark.png';
 import TextRecognition from 'react-native-text-recognition';// <- npm install react-native-text-recognition@ml 
                                                             // !!! Without @ml this doesn't work
 
@@ -163,7 +165,8 @@ export default function Camera({navigation, route}) {
         <TouchableOpacity onPress={() => captureHandle()}>
           <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
             <View style={styles.button} >
-              <Text style={styles.buttonText}>Havaitse</Text>
+              {/* <Text style={styles.buttonText}>Havaitse</Text> */}
+              <Image source={cameraWhite} style={styles.camera}/>
             </View>
           </View>
         </TouchableOpacity>
@@ -206,5 +209,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     color: '#d1d1d1',
     fontWeight: 'bold'
+  },
+  camera: {
+     width:55,
+    height: 45,
+    margin: 10
   }
+   
 })

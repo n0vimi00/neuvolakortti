@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Button, Pressable, TouchableOpacity, ScrollView, TextInput, Alert} from 'react-native';
+import {View, Text, StyleSheet, Button, Pressable, Image, TouchableOpacity, ScrollView, TextInput, Alert} from 'react-native';
 import {db, ROOT_REF} from '../firebase/Config';
 import { ref, update } from "firebase/database";
 import Radiobutton from '../components/Radiobutton';
 import styles from '../style';
 import MicFAB from '../components/MicFAB';
+import trashRed from '../icons/trash-red.png';
 
 export default function Individual({navigation, route}) {
     const [currentCow, setCurrentCow] = useState([]);
@@ -107,9 +108,10 @@ export default function Individual({navigation, route}) {
         <View style={styles.main}>
             <View style={styles.titleRow}>            
                 <Text style={styles.header}># {index}</Text>
-                <View style={{justifyContent: 'flex-end',position: "absolute", right: 20,}}>
-                    <Text style={{fontSize: 15, color: '#8c0010'}} onPress={() => confirmBeforeRemove()}>Poista vasikka</Text>
-                </View>
+                <TouchableOpacity onPress={() => confirmBeforeRemove()} style={{flexDirection:'row',justifyContent: 'flex-end',position: "absolute", right: 20,}}>
+                    <Image source={trashRed} style={{height: 20, width: 20}} />
+                    <Text style={{marginLeft: 5,fontSize: 15, color: '#8c0010'}} >Poista vasikka</Text>
+                </TouchableOpacity>
 
                 {/* <TouchableOpacity style={styles.grayButton} onPress={() => removeThisCow()}>
                     <Text style={styles.buttonText}>Poista vasikka tietokannasta</Text>
