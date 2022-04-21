@@ -100,8 +100,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     overviewCircle: {
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 25,
+        borderColor: '#9cb8a8',
         alignContent: 'center',
         justifyContent: 'center',
         height: 50,
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 15,
         color: 'black',
+        fontWeight: 'bold',
         // borderRadius: 40,
         // borderWidth: 0.5,
         // padding: 15,

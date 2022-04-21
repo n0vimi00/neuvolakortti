@@ -22,7 +22,7 @@ export const CowRow = ({cowNumber, cowName, temperature}) => {
                 <Text style={{fontWeight: 'bold', color: 'black'}}>{cowNumber}</Text>
             </View>
             <View style={styles.col2}>
-                {cowName ? <Text>"{cowName}"</Text> : null}
+                {cowName ? <Text>Nimi: {cowName}</Text> : null}
                 {temperature ? <Text>Ruumiinlämpö: {temperature} °C</Text> : null} 
             </View>
             <View style={styles.col3}>
@@ -38,20 +38,22 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         margin: 3,
         paddingHorizontal: 10,
-        paddingBottom: 5,
-      //  alignItems: 'center',
-        borderBottomWidth: 1,
-        borderColor: '#86a68e'
+        paddingBottom: 2,
+        paddingTop: 2,
+        // borderBottomWidth: 1,
+        // borderColor: '#86a68e'
     },
     rowText: {
       color: 'black'
     },
     col1: {
         alignSelf: 'flex-start',
-        marginRight: 20,
+        marginRight: 20    
     },
     col2: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        // alignContent: 'center',
+        // flex: 1,
     },
     col3: {
         alignItems: 'flex-end',

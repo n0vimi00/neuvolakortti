@@ -20,6 +20,8 @@ export default function App() {
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold',
+              fontFamily: 'sans-serif-light',
+              fontSize: 19
             },
         }}>
       <Stack.Screen
@@ -28,7 +30,8 @@ export default function App() {
           
           options={{
             title: "Home",
-            headerTitle: "Vasikan neuvolakortti",
+           // headerTitle: "Vasikan neuvolakortti",
+            headerTitle: "VASIKAN NEUVOLAKORTTI",
             headerRight: () => (
                 <AddButton />
             ),

@@ -96,16 +96,19 @@ export default function Home({navigation}) {
 
     <ScrollView style={styles.contentContainer}>
       {cowList ? (
-        cowKeys.map(key => (
-        <TouchableOpacity key={key}
-        onPress={() => navigation.navigate('Individual', {cow: cowList[key], key: [key]})}>
-          <CowRow 
-            cowNumber={key}
-            cowName={cowList[key].name}
-            temperature={cowList[key].temperature}
-            // trembling={cowList[key].trembling}
-          />
-        </TouchableOpacity>
+        cowKeys.map(key => ( 
+        <View key={key} style={{ borderBottomWidth: 1, borderColor: '#86a68e'}}>
+          <TouchableOpacity 
+          onPress={() => navigation.navigate('Individual', {cow: cowList[key], key: [key]})}>
+              <CowRow 
+                cowNumber={key}
+                cowName={cowList[key].name}
+                temperature={cowList[key].temperature}
+                // trembling={cowList[key].trembling}
+              />
+            
+          </TouchableOpacity>
+        </View>
         ))
       ) : (
         <Text>Tietokanta on tyhjä.</Text>
