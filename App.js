@@ -6,6 +6,9 @@ import Individual from './screens/Individual';
 import NewCow from './screens/NewCow';
 import AddButton from './components/AddButton';
 import Camera from './screens/Camera';
+import { LogBox } from 'react-native';
+// LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+// LogBox.ignoreAllLogs();//Ignore all log notifications
 
 export default function App() {
   const Stack = createNativeStackNavigator();

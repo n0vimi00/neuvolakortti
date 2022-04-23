@@ -94,8 +94,9 @@ export default function Home({navigation}) {
 
 
 
-    <ScrollView style={styles.contentContainer}>
-      {cowList ? (
+      {cowKeys.length > 0 ? 
+      <ScrollView style={styles.contentContainer}>
+      {
         cowKeys.map(key => ( 
         <View key={key} style={{ borderBottomWidth: 1, borderColor: '#86a68e'}}>
           <TouchableOpacity 
@@ -110,10 +111,10 @@ export default function Home({navigation}) {
           </TouchableOpacity>
         </View>
         ))
-      ) : (
-        <Text>Tietokanta on tyhjä.</Text>
+        }
+        </ScrollView> : (
+        <Text style={styles.emptyDatabaseView}>Tietokanta on tyhjä.</Text>
       )}
-    </ScrollView>
       </>
     }
 

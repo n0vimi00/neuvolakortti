@@ -30,6 +30,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#e8ede9',
       borderRadius: 10,
     },
+    emptyDatabaseView: {
+        marginBottom: 70,
+        padding: 10,
+        backgroundColor: '#e8ede9',
+        borderRadius: 10,
+    },
     textInputLabel: {
         color: 'black'
     },

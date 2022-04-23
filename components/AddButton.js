@@ -2,7 +2,6 @@ import {StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import plus from '../icons/plus.png';
-import add from '../icons/add.png';
 
 export default function AddButton() {
     const navigation = useNavigation();
