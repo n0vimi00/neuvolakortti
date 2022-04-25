@@ -24,8 +24,7 @@ export default function Home({navigation}) {
     }
   }, []);
 
-  let cowKeys = Object.keys(cowList);
-  
+  let cowKeys = Object.keys(cowList).sort();
 
   // user clicked 'remove all'; asking for confirmation first
   const confirmDeleteAll = () => Alert.alert(
