@@ -29,6 +29,8 @@ const styles = StyleSheet.create({
       padding: 10,
       backgroundColor: '#e8ede9',
       borderRadius: 10,
+      shadowColor: 'black',
+        elevation: 10,
     },
     emptyDatabaseView: {
         marginBottom: 70,

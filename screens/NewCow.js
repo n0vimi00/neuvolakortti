@@ -25,7 +25,7 @@ export default function Home({navigation, route}) {
       // otherwise value is empty by default
       setCowNumber(route.params?.cowNumber);
     }
-    db.ref(ROOT_REF).on('value', querySnapShot => {
+    db.ref(ROOT_REF).once('value', querySnapShot => {
       let data = querySnapShot.val() ? querySnapShot.val() : {};
       let cows = {...data};
       setCowList(cows);
@@ -66,6 +66,39 @@ export default function Home({navigation, route}) {
   }
 
   function addNewCow() {
+    if (cowNumber.trim() !== '') {
+      // then if number format is incorrect, program is halted
+        if (checkCorrectFormat(cowNumber) === false) {
+          alert('Tarkista korvanumero. Korvanumeron pituus on 4 ja se saa sisältää ainoastaan numeroita.');
+          return;
+        }
+      // proceeding (cow number format is correct)
+      // checking if this cow already exists (to prevent overwriting)
+        if (checkIfExists(cowNumber) === true) {
+            alert('Tämä vasikka on jo tietokannassa. Jos haluat muokata olemassa olevan vasikan tietoja, etsi ko. vasikka listasta, tai vaihtoehtoisesti skannaa tai sanele korvanumero.');
+            return;
+        } else {
+          // Json parse used to prevent sending undefined values to database (undefined is not allowed)
+        let saveData = JSON.parse(JSON.stringify({ name: cowName,
+            temperature: temperature,
+          }))
+      /*   if (inProgress) {
+            update(ref(db, ROOT_REF + index), saveData);
+        } */
+        set(ref(db, ROOT_REF + cowNumber), saveData)
+        .then(() => {
+            navigation.navigate('Home'); // Data saved successfully!
+          })
+          .catch((error) => {
+            alert (error)   // The write failed...
+          });
+        }
+      }  
+        
+          
+    }
+
+  function addNewCow2() {
     // first checking that cowNumber is not empty (trim takes out empty spaces)
     if (cowNumber.trim() !== '') {
     // then if number format is incorrect, program is halted
@@ -148,4 +181,3 @@ export default function Home({navigation, route}) {
    
   )
 }
-

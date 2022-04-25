@@ -21,7 +21,7 @@ export default function Camera({navigation, route}) {
 
     const [cowList, setCowList] = useState({});
     useEffect(() => {
-        db.ref(ROOT_REF).on('value', querySnapShot => {
+        db.ref(ROOT_REF).once('value', querySnapShot => {
             let data = querySnapShot.val() ? querySnapShot.val() : {};
             let cows = {...data};
             setCowList(cows);

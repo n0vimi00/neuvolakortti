@@ -20,29 +20,6 @@ export default function Individual({navigation, route}) {
     //     {label: 'Yes', value: true},
     //     {label: 'No', value: false}
     //   ]; //Need to find a way to not have to repeat the options on every screen
-
-    
-    /* const [cowList, setCowList] = useState({});
-    useEffect(() => {
-            db.ref(ROOT_REF).on('value', querySnapShot => {
-            let data = querySnapShot.val() ? querySnapShot.val() : {};
-            let cows = {...data};
-            setCowList(cows);
-            })
-            if (route.params?.cowNumber) {
-                // alert(JSON.stringify(cowList));
-                // setIndex(route.params?.cowNumber);
-            }
-        }, []); */
-    // When coming from camera screen with scanned code
-   /*  useEffect(() => {
-        if (route.params?.cowNumber) {
-        alert(JSON.stringify(cowList));
-        setCowName(cowList[index].cowName);
-        setTemperature(cowList[index].temperature);
-        }
-      }, [route.params?.cowNumber]);
- */
    
     useEffect(() => {
             if (route.params?.cow) {
@@ -54,26 +31,21 @@ export default function Individual({navigation, route}) {
                 alert('Virhe. Vasikan tietoja ei voitu noutaa.');
             }
         }, [])
-       // }, [route.params?.cow]);
     
     function saveChanges() {
         // Json parse used to prevent sending undefined values to database (undefined is not allowed)
         let saveData = JSON.parse(JSON.stringify({ name: cowName,
             temperature: temperature,
           }))
-        if (inProgress) {
-            update(ref(db, ROOT_REF + index), saveData);
-        }
-        
-        setInProgress(false);
-     /*  update(ref(db, ROOT_REF + index), { // index = cowNumber
-            
-        name: cowName,
-        temperature: temperature,
-        // trembling: trembling
-      }) */
-     // navigation.navigate('Home');
-     // return; 
+
+        update(ref(db, ROOT_REF + index), saveData)
+        .then(() => {
+            navigation.navigate('Home'); // Data saved successfully!
+          })
+          .catch((error) => {
+            alert (error)   // The write failed...
+          });
+          
     }
     
     useEffect(() => {
@@ -113,9 +85,6 @@ export default function Individual({navigation, route}) {
                     <Text style={{marginLeft: 5,fontSize: 15, color: '#8c0010'}} >Poista vasikka</Text>
                 </TouchableOpacity>
 
-                {/* <TouchableOpacity style={styles.grayButton} onPress={() => removeThisCow()}>
-                    <Text style={styles.buttonText}>Poista vasikka tietokannasta</Text>
-                </TouchableOpacity> */}
 
             </View>
 
