@@ -1,14 +1,14 @@
 import firebase from 'firebase/compat';
 
 const firebaseConfig = ({
-    apiKey: "AIzaSyChq7doiw-0vvz_3ceenTjOdow-SDyZVME",
-    authDomain: "fir-web-a16d4.firebaseapp.com",
-    projectId: "fir-web-a16d4",
-    storageBucket: "fir-web-a16d4.appspot.com",
-    messagingSenderId: "295313408920",
-    appId: "1:295313408920:web:02b6e547820fbde5fae1ed",
-    databaseURL: "https://fir-web-a16d4-default-rtdb.europe-west1.firebasedatabase.app/"
-});
+    apiKey: "AIzaSyBb7fEp0Shd4cdao1zADzfFEcRlXdpGbtw",
+    authDomain: "neuvolakortti-1dd02.firebaseapp.com",
+    databaseURL: "https://neuvolakortti-1dd02-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "neuvolakortti-1dd02",
+    storageBucket: "neuvolakortti-1dd02.appspot.com",
+    messagingSenderId: "451298330271",
+    appId: "1:451298330271:web:0be00e2f191e3b72f7c4aa"
+  });
 
 const app = firebase.initializeApp(firebaseConfig);
 export const db = app.database();
