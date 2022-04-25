@@ -7,8 +7,8 @@ import NewCow from './screens/NewCow';
 import AddButton from './components/AddButton';
 import Camera from './screens/Camera';
 import { LogBox } from 'react-native';
-// LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-// LogBox.ignoreAllLogs();//Ignore all log notifications
+import List from './screens/List';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -66,6 +66,15 @@ export default function App() {
           options={{
             title: "Camera",
             headerTitle: "Skannaa korvanumero"
+          }} 
+        />
+
+      <Stack.Screen
+          name="List"
+          component={List}
+          options={{
+            title: "List",
+            headerTitle: "Vasikat"
           }} 
         />
 

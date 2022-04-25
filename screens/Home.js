@@ -62,10 +62,13 @@ export default function Home({navigation}) {
           <Image source={cow} style={styles.overviewImage}/>    
           
           <View style={styles.overviewTotal}>
-            <View style={styles.overviewCircle} >
-              <Text style={styles.overviewCount}>{cowKeys.length}</Text>
-            </View>
-            <Text style={styles.overviewText}>YHTEENSÄ</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('List')}>
+              <View style={styles.overviewCircle} >
+                <Text style={styles.overviewCount}>{cowKeys.length}</Text>
+              </View>
+              <Text style={styles.overviewText}>YHTEENSÄ</Text>
+            </TouchableOpacity>
+            
           </View>
 
         {/* Hardcoded for now, can add functionality later */}
