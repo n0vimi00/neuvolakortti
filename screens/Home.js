@@ -62,7 +62,7 @@ export default function Home({navigation}) {
           <Image source={cow} style={styles.overviewImage}/>    
           
           <View style={styles.overviewTotal}>
-            <TouchableOpacity onPress={() => navigation.navigate('List')}>
+            <TouchableOpacity onPress={() => navigation.navigate('List', {cowList: cowList, currentTab: 'all'})}>
               <View style={styles.overviewCircle} >
                 <Text style={styles.overviewCount}>{cowKeys.length}</Text>
               </View>
@@ -73,10 +73,12 @@ export default function Home({navigation}) {
 
         {/* Hardcoded for now, can add functionality later */}
           <View style={styles.overviewTotal}>
+          <TouchableOpacity onPress={() => navigation.navigate('List', {cowList: cowList, currentTab: 'sick'})}>
             <View style={styles.overviewCircle} >
               <Text style={styles.overviewCount}>0</Text>
             </View>
             <Text style={styles.overviewText}>SAIRAITA</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.overviewTotal}>
             <View style={styles.overviewCircle} >
