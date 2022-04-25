@@ -9,7 +9,6 @@ export default function Home({navigation, route}) {
   const [cowNumber, setCowNumber] = useState('');
   const [cowName, setCowName] = useState('');
   const [temperature, setTemperature] = useState('');
-  const [inProgress, setInProgress] = useState(true);
 
 //   const [trembling, setTrembling] = useState(null);
 //   const tremblingOptions = [
@@ -97,52 +96,6 @@ export default function Home({navigation, route}) {
         
           
     }
-
-  function addNewCow2() {
-    // first checking that cowNumber is not empty (trim takes out empty spaces)
-    if (cowNumber.trim() !== '') {
-    // then if number format is incorrect, program is halted
-      if (checkCorrectFormat(cowNumber) === false) {
-        alert('Tarkista korvanumero. Korvanumeron pituus on 4 ja se saa sisältää ainoastaan numeroita.');
-        return;
-      }
-    // proceeding (cow number format is correct)
-    // checking if this cow already exists (to prevent overwriting)
-      if (checkIfExists(cowNumber) === true) {
-          alert('Tämä vasikka on jo tietokannassa. Jos haluat muokata olemassa olevan vasikan tietoja, etsi ko. vasikka listasta, tai vaihtoehtoisesti skannaa tai sanele korvanumero.');
-          return;
-      }
-
-
-    // format is correct, cow number does not exist yet
-    // -> will proceed with adding new cow
-      set(ref(db, ROOT_REF + cowNumber), { // CowNumber is the index
-        number: Number(cowNumber),
-        // adding cow number also as a child value because
-        // 1. cannot add empty node, so something needs to be included always
-        // 2. Not implemented yet: in the node, cow number is stored as a string. because of JSON settings codes
-        //    with zeros in front (like 0001) are shown at the end of the list. so this same string is changed to 
-        // number and saved as child value to help order values in an ascending order. 
-        name: cowName,
-        temperature: temperature,
-        // trembling: trembling
-      })
-
-      // New cow has been added, navigating back to home screen
-      setInProgress(false);
-    //  navigation.navigate("Home")
-
-    }  else {
-      // alert when number field is empty and user tries to add new cow
-      alert('Korvanumero on pakollinen tieto.');
-    }
-  }
-
-  useEffect(() => {
-    if (!inProgress) {
-        navigation.navigate('Home');
-    }
-}, [inProgress])
 
 
   return (
