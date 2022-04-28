@@ -4,11 +4,121 @@ import {db, ROOT_REF} from '../firebase/Config';
 import { ref, set } from "firebase/database";
 import styles from '../style'
 import MicFAB from '../components/MicFAB';
+import Voice from '@react-native-community/voice';
 
-export default function Home({navigation, route}) {
+export default function NewCow({navigation, route}) {
   const [cowNumber, setCowNumber] = useState('');
   const [cowName, setCowName] = useState('');
   const [temperature, setTemperature] = useState('');
+
+  // const [isActive, setIsActive] = useState('');
+  const [voiceText, setVoiceText] = useState('');
+  
+  const commands = [
+    {
+      command: "numero",
+      // name: "korvanumero",
+    },
+    {
+      command: "nimi",
+      // name: "nimi",
+    },
+    {
+      command: "ruumiinlämpö",
+      // nimi: "ruumiinlämpö",
+    },
+    {
+      command: "tallenna",
+      // nimi: "ruumiinlämpö",
+    },
+    {
+      command: "takaisin",
+      // nimi: "ruumiinlämpö",
+    },
+  ];
+
+
+  useEffect(() => {
+    Voice.destroy().then(Voice.removeAllListeners);
+    Voice.onSpeechStart = onSpeechStartHandler;
+    Voice.onSpeechRecognized = onSpeechRecognizedHandler;
+    Voice.onSpeechEnd = onSpeechEndHandler;
+    Voice.onSpeechPartialResults = onSpeechPartialResultsHandler;
+    Voice.onSpeechResults = onSpeechResultsHandler;
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    }
+  }, [])
+
+  //  Activates mic when screen is focused
+  useEffect(() => {
+    const activateMic = navigation.addListener('focus', () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+      Voice.start('fi-FI')
+      console.log('new is active')
+    });
+
+    return activateMic;
+  }, [navigation]);
+
+
+  const onSpeechStartHandler = (e) => {
+    console.log("start handler new==>>>", e)
+  }
+
+  const onSpeechRecognizedHandler = (e) => {
+    console.log("Recognizer new==>>>", e)
+  }
+  
+  const onSpeechEndHandler = (e) => {
+    console.log("stop handler", e)
+    // Voice.start('fi-FI') 
+  }
+
+  const onSpeechPartialResultsHandler = (e) => {
+    setVoiceText((e.value[0]).toLocaleLowerCase())
+    commands.forEach((item) => {
+      if ((e.value[0]).includes(item.command)) {
+        if (item.command == "numero") {
+          setCowNumber((e.value[0]).replace(item.command, " ").trim())
+        } if (item.command == "nimi") {
+          setCowName((e.value[0]).replace(item.command, " ").trim())
+        } if (item.command == "ruumiinlämpö") {
+          setTemperature((e.value[0]).replace(item.command, " ").trim())
+        } if (item.command == "takaisin") {
+          navigation.navigate('Home')
+      } if (item.command == "tallenna") {
+        addNewCow() /* not working yet */
+        console.log('tallenna')
+    }
+      }
+    });
+  }
+
+  const onSpeechResultsHandler = (e) => {
+    // setVoiceText(e.value[0])
+    Voice.start('fi-FI')
+    console.log("speech result handler", e)
+
+  }
+
+  const startRecording = async () => {
+    try {
+      await Voice.start('fi-FI')
+    } catch (error) {
+      console.log("error", error)
+    }
+  }
+
+  const stopRecording = async () => {
+    try {
+      await Voice.stop()
+    } catch (error) {
+      console.log("error", error)
+    }
+  }
+
 
 //   const [trembling, setTrembling] = useState(null);
 //   const tremblingOptions = [
@@ -126,9 +236,14 @@ export default function Home({navigation, route}) {
                 <Text style={styles.buttonText}>Lisää vasikka</Text>
             </TouchableOpacity>
         </View>
+
+        <Text>{voiceText}</Text>
+        <TouchableOpacity style={styles.customButton} onPress={stopRecording}>
+                <Text style={styles.buttonText}>lopeta</Text>
+            </TouchableOpacity>
     
       {/* no global functionality to toggling microphone yet; useState in App.js? */}
-    <MicFAB title="microphone-on" onPress={() => alert('Pressed Microphone')} />
+    <MicFAB title="microphone-on" onPress={startRecording} />
         </View>
     </TouchableWithoutFeedback>
    

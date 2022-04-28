@@ -7,11 +7,129 @@ import MicFAB from '../components/MicFAB';
 import CameraFAB from '../components/CameraFAB';
 import calfHead from '../icons/calfHead.png';
 import cow from '../icons/cow.png';
+import Voice from '@react-native-community/voice';
 
 export default function Home({navigation}) {
   const [cowList, setCowList] = useState({});
   const [loadingStatus, setLoadingStatus] = useState(true); 
   const [microphoneOn, setMicrophoneOn] = useState(true);
+  const [num, setNum] = useState('');
+
+  const [voiceText, setVoiceText] = useState('');
+  
+  const commands = [
+    {
+      command: "vasikka",
+    },
+    {
+      command: "uusi",
+    },
+    {
+      command: "numero",
+    },
+    {
+      command: "nimi",
+    },
+    {
+      command: "lämpö",
+    },
+    {
+      command: "tallenna",
+    },
+    {
+      command: "takaisin",
+    },
+  ];
+
+  useEffect(() => {
+    Voice.destroy().then(Voice.removeAllListeners);
+    Voice.onSpeechStart = onSpeechStartHandler;
+    Voice.onSpeechRecognized = onSpeechRecognizedHandler;
+    Voice.onSpeechEnd = onSpeechEndHandler;
+    Voice.onSpeechPartialResults = onSpeechPartialResultsHandler;
+    Voice.onSpeechResults = onSpeechResultsHandler;
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    }
+  }, [])
+
+  //  Activates mic when screen is focused
+  useEffect(() => {
+    const activateMic = navigation.addListener('focus', () => {
+      // Voice.destroy().then(Voice.removeAllListeners);
+      Voice.start('fi-FI')
+      console.log('home is active')
+    });
+
+    return activateMic;
+  }, [navigation]);
+
+
+
+  const onSpeechStartHandler = (e) => {
+    console.log("start handler home==>>>", e)
+  }
+
+  const onSpeechRecognizedHandler = (e) => {
+    console.log("Recognizer home==>>>", e)
+  }
+  
+  const onSpeechEndHandler = (e) => {
+    console.log("stop handler", e)
+    Voice.start('fi-FI')
+  }
+
+  const onSpeechPartialResultsHandler = (e) => {
+    setVoiceText((e.value[0]).toLocaleLowerCase())
+    commands.forEach((item) => {
+      if ((e.value[0]).includes(item.command)) {
+        if (item.command == "vasikka") {
+          setNum((e.value[0]).replace(item.command, " ").trim())
+          navigation.navigate('Individual', {cow: cowList[num], key: [num]}) /* doesn't work yet */
+          console.log('key', num)
+        }
+       if (item.command == "uusi") {
+        navigation.navigate('NewCow')
+        }
+        
+      }
+    });
+  }
+
+  const onSpeechResultsHandler = (e) => {
+    // setVoiceText(e.value[0])
+    // setVoiceText(e.value[0])
+    Voice.start('fi-FI')
+
+   
+    console.log("speech result handler", e)
+
+  }
+
+  const startRecording = async () => {
+    try {
+      await Voice.start('fi-FI'
+      // , {  
+      //   EXTRA_MAX_RESULTS: 100,
+      //   EXTRA_PARTIAL_RESULTS: true,
+      //   EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS: 90000,
+      //   EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS: 90000,
+      //   EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS: 90000}
+        )
+    } catch (error) {
+      console.log("error", error)
+    }
+  }
+
+  const stopRecording = async () => {
+    try {
+      await Voice.stop()
+    } catch (error) {
+      console.log("error", error)
+    }
+  }
+
 
   useEffect(() => {
     if (loadingStatus) {
@@ -125,11 +243,11 @@ export default function Home({navigation}) {
     {/* <TouchableOpacity style={styles.grayButton} onPress={() => navigation.navigate('Camera', {keys: cowKeys, cowList: cowList})}>
         <Text style={styles.buttonText}>Camera</Text>
     </TouchableOpacity> */}
-
+      <Text>{num}</Text>
     
       <CameraFAB title="Camera" onPress={() => navigation.navigate('Camera')} />
       <MicFAB title={microphoneOn ? "microphone-on" : "microphone-off"} 
-        onPress={() => setMicrophoneOn(!microphoneOn)} />
+        onPress={startRecording} />
     </View>
     </TouchableWithoutFeedback>
   )
